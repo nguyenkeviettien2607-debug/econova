@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECONOVA - Giáo Dục Hành Trình Xanh | 3D Web Board Game</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        emerald: {
+                            400: '#34d399',
+                            500: '#10b981',
+                            600: '#059669',
+                            800: '#065f46',
+                            900: '#064e3b'
+                        },
+                        cyan: {
+                            400: '#22d3ee',
+                            500: '#06b6d4',
+                            600: '#0891b2',
+                            800: '#155e75'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Three.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Custom Luxury Glassmorphism CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- ==========================================
+         STEP 1: LOGIN & CHARACTER SELECTION SCREEN
+         ========================================== -->
+    <div id="authScreen" class="auth-screen-container">
+        <!-- Injected dynamically by AuthComponent -->
+    </div>
+
+    <!-- ==========================================
+         STEP 2: MAIN BOARD GAME SCREEN
+         ========================================== -->
+    <main class="game-main-app" id="mainGameApp">
+        <!-- Top Header Navigation & Controls -->
+        <header class="game-top-bar glass-panel">
+            <div class="brand-badge">
+                <span class="text-3xl animate-pulse">🌱</span>
+                <div>
+                    <h1 class="brand-title">ECONOVA</h1>
+                    <span class="text-[9px] uppercase tracking-widest text-emerald-400 font-bold block -mt-1">
+                        HÀNH TRÌNH XANH 3D
+                    </span>
+                </div>
+            </div>
+
+            <!-- Current Turn & Status Notification -->
+            <div class="flex items-center gap-2">
+                <div id="roomCodeBadgeHUD" class="px-3 py-1.5 rounded-full bg-slate-900/80 border border-amber-500/40 text-xs flex items-center gap-1.5 shadow-lg">
+                    <span class="text-amber-400 font-bold">🏰 Phòng:</span>
+                    <span id="roomCodeTextHUD" class="font-mono font-black text-amber-300">ECO-888</span>
+                </div>
+                <div id="currentTurnPlayerBadge" class="px-4 py-1.5 rounded-full bg-slate-900/80 border border-emerald-500/40 text-xs flex items-center shadow-lg">
+                    <span class="w-3 h-3 rounded-full bg-emerald-400 mr-2 animate-ping"></span>
+                    <span>Đang tải hành trình...</span>
+                </div>
+            </div>
+
+            <!-- Quick Action Buttons -->
+            <div class="flex items-center gap-3">
+                <button id="btnOpenCrafting" class="eco-btn-action gold-glow text-xs py-2 px-3">
+                    🧪 Bàn Chế Tạo
+                </button>
+                <button id="btnToggleView" class="eco-btn-action text-xs py-2 px-3 bg-slate-800">
+                    📐 Góc nhìn: 3D Isometric
+                </button>
+                <button id="btnToggleSound" class="eco-btn-action text-xs py-2 px-3 bg-slate-800">
+                    🔊 Âm thanh: Bật
+                </button>
+                <button id="btnOpenEcoBot" class="eco-btn-action text-xs py-2 px-3 bg-emerald-700">
+                    🤖 EcoBot AI
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Viewport Area -->
+        <div class="game-viewport">
+            <!-- Left Sidebar: Player Scoreboard & Missions -->
+            <aside class="game-left-sidebar">
+                <!-- Players Scoreboard -->
+                <div class="glass-panel p-3">
+                    <h3 class="text-xs font-bold text-amber-300 uppercase tracking-wider mb-2 flex items-center justify-between">
+                        <span>👥 Bảng Điểm Người Chơi</span>
+                        <span class="text-[10px] text-gray-400">4 Người</span>
+                    </h3>
+                    <div id="playersScoreboardList" class="flex flex-col gap-2">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+
+                <!-- Green Missions Tracker -->
+                <div class="glass-panel p-3 flex-1 flex flex-col">
+                    <h3 class="text-xs font-bold text-emerald-300 uppercase tracking-wider mb-2 flex items-center gap-1">
+                        <span>🎯</span> Nhiệm Vụ Sinh Thái
+                    </h3>
+                    <div id="missionsListContainer" class="flex flex-col gap-2 overflow-y-auto">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Center Viewport: 40-Tile Isometric Board & 3D Earth Hub -->
+            <section class="board-viewport-container">
+                <div id="boardContainer" class="board-wrapper-outer">
+                    <!-- Isometric 40-Tile Grid & Center Hub injected here by GameBoard -->
+                </div>
+            </section>
+
+            <!-- Right Sidebar: Live Environmental Log & Quick Guide -->
+            <aside class="game-right-sidebar">
+                <!-- 4 Phases Quick Info Card -->
+                <div class="glass-panel p-3">
+                    <h3 class="text-xs font-bold text-cyan-300 uppercase tracking-wider mb-1 flex items-center gap-1">
+                        <span>📜</span> Giai Đoạn Hiện Tại
+                    </h3>
+                    <div id="currentPhaseName" class="text-sm font-black text-emerald-300">Giai Đoạn 1: Thức Tỉnh Xanh</div>
+                    <p id="currentPhaseDesc" class="text-[11px] text-gray-300 mt-1 leading-relaxed">
+                        Thu gom rác ban đầu, ươm mầm cây con và thức tỉnh nhận thức cộng đồng.
+                    </p>
+                </div>
+
+                <!-- Game Activity Log Stream -->
+                <div class="game-log-box glass-panel">
+                    <h3 class="text-xs font-bold text-amber-300 uppercase tracking-wider mb-2 flex items-center gap-1">
+                        <span>📢</span> Nhật Ký Hành Trình
+                    </h3>
+                    <ul id="gameLogList" class="log-entries-list">
+                        <!-- Dynamic logs here -->
+                    </ul>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- ==========================================
+         SCRIPTS ARCHITECTURE
+         ========================================== -->
+    <script src="js/audio.js"></script>
+    <script src="js/cardsData.js"></script>
+    <script src="js/threeHub.js"></script>
+    <script src="js/board.js"></script>
+    <script src="js/cardModal.js"></script>
+    <script src="js/crafting.js"></script>
+    <script src="js/ecobot.js"></script>
+    <script src="js/authComponent.js"></script>
+    <script src="js/game.js"></script>
+
+    <!-- Bootstrap Game Script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const game = new EconovaGame();
+
+            // Initialize Auth Screen
+            new AuthComponent((playerConfig) => {
+                // When player finishes role selection, start the game!
+                game.start(playerConfig);
+            });
+        });
+    </script>
+</body>
+</html>

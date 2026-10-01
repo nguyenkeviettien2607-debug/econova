@@ -1,0 +1,1602 @@
+/* ==========================================================================
+   ECONOVA - GIÁO DỤC HÀNH TRÌNH XANH
+   Luxury 3D Isometric Web Board Game Stylesheet & Glassmorphism Design System
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --bg-dark: #071311;
+    --emerald-primary: #10b981;
+    --emerald-glow: rgba(16, 185, 129, 0.4);
+    --ocean-blue: #0284c7;
+    --ocean-glow: rgba(2, 132, 199, 0.4);
+    --energy-gold: #f59e0b;
+    --gold-glow: rgba(245, 158, 11, 0.45);
+    --crisis-red: #ef4444;
+    --crisis-glow: rgba(239, 68, 68, 0.45);
+    
+    --glass-bg: rgba(13, 27, 24, 0.72);
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --glass-blur: blur(16px);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: var(--bg-dark);
+    color: #f1f5f9;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* --- UTILITY & GLASSMORPHISM --- */
+
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+.eco-btn-action {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: #fff;
+    font-weight: 700;
+    padding: 10px 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 4px 15px var(--emerald-glow);
+}
+
+.eco-btn-action:hover:not(:disabled) {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 6px 22px rgba(16, 185, 129, 0.6);
+}
+
+.eco-btn-action:active:not(:disabled) {
+    transform: translateY(1px);
+}
+
+.eco-btn-action.disabled, .eco-btn-action:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    filter: grayscale(0.6);
+    box-shadow: none;
+}
+
+.gold-glow {
+    background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+    box-shadow: 0 4px 15px var(--gold-glow) !important;
+}
+
+.danger-glow {
+    background: linear-gradient(135deg, #ef4444, #b91c1c) !important;
+    box-shadow: 0 4px 15px var(--crisis-glow) !important;
+}
+
+.eco-input, .eco-select {
+    width: 100%;
+    padding: 10px 14px;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    color: #fff;
+    outline: none;
+    font-size: 14px;
+    transition: border-color 0.2s;
+}
+
+.eco-input:focus, .eco-select:focus {
+    border-color: var(--emerald-primary);
+    box-shadow: 0 0 10px var(--emerald-glow);
+}
+
+/* --- AUTH & CHARACTER SELECTION SCREEN --- */
+
+.auth-screen-container {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ambient-bg-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.auth-overlay-glass {
+    position: relative;
+    z-index: 10;
+    width: 90%;
+    max-width: 920px;
+    margin: auto;
+}
+
+.auth-box {
+    max-width: 440px;
+    margin: auto;
+    padding: 36px 30px;
+}
+
+.auth-tab {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 600;
+    font-size: 13px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.auth-tab.active {
+    color: var(--emerald-primary);
+    border-bottom: 2px solid var(--emerald-primary);
+}
+
+.role-selection-box {
+    padding: 30px;
+}
+
+.characters-chibi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.chibi-role-card {
+    background: rgba(15, 23, 42, 0.55);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 20px 14px;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.chibi-role-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(16, 185, 129, 0.5);
+    background: rgba(16, 185, 129, 0.1);
+}
+
+.chibi-role-card.active {
+    border-color: var(--emerald-primary);
+    background: rgba(16, 185, 129, 0.2);
+    box-shadow: 0 0 25px var(--emerald-glow);
+}
+
+.chibi-avatar-frame {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.chibi-icon {
+    font-size: 38px;
+}
+
+.avatar-glow-ring {
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 2px dashed;
+    animation: rotateSlow 12s linear infinite;
+}
+
+.idle-bounce {
+    animation: idleBounce 2.5s ease-in-out infinite;
+}
+
+@keyframes idleBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-7px); }
+}
+
+@keyframes rotateSlow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.color-dot {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.color-dot.active {
+    border-color: #fff;
+    transform: scale(1.15);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+.check-mark-bubble {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 22px;
+    height: 22px;
+    background: var(--emerald-primary);
+    border-radius: 50%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.chibi-role-card.active .check-mark-bubble {
+    display: flex;
+}
+
+/* --- MAIN GAME SCREEN LAYOUT --- */
+
+.game-main-app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    background: radial-gradient(circle at 50% 50%, #0d2822 0%, #061512 80%, #020907 100%);
+}
+
+/* Top App Header / Bar */
+.game-top-bar {
+    height: 60px;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 40;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.brand-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.brand-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    color: #34d399;
+    text-shadow: 0 0 12px var(--emerald-glow);
+}
+
+/* Center Content: Board Area + Sidebars */
+.game-viewport {
+    flex: 1;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+}
+
+.game-left-sidebar {
+    width: 280px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    z-index: 30;
+    overflow-y: auto;
+}
+
+.game-right-sidebar {
+    width: 300px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    z-index: 30;
+    overflow-y: auto;
+}
+
+.board-viewport-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* ==========================================================================
+   ISOMETRIC 3D / 2.5D BOARD
+   ========================================================================== */
+
+.board-grid-wrapper {
+    display: grid;
+    grid-template-columns: repeat(11, 74px);
+    grid-template-rows: repeat(11, 74px);
+    gap: 6px;
+    padding: 16px;
+    background: rgba(6, 20, 16, 0.85);
+    border: 3px solid rgba(16, 185, 129, 0.4);
+    border-radius: 28px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 50px rgba(16, 185, 129, 0.2);
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transform-origin: center center;
+}
+
+/* Isometric 3D View */
+.board-iso-view {
+    transform: perspective(1400px) rotateX(46deg) rotateZ(-28deg) scale(0.92);
+}
+
+/* Flat 2D View */
+.board-flat-view {
+    transform: perspective(1400px) rotateX(0deg) rotateZ(0deg) scale(0.85);
+}
+
+/* 40 Perimeter Tiles Styling */
+.board-tile {
+    background: rgba(15, 32, 28, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    overflow: hidden;
+}
+
+.board-tile:hover {
+    transform: translateY(-4px) scale(1.05);
+    z-index: 20;
+    border-color: #fff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+.tile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tile-id {
+    font-size: 8px;
+    font-weight: 800;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.tile-icon {
+    font-size: 16px;
+}
+
+.tile-name {
+    font-size: 9px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: #e2e8f0;
+    margin: 2px 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.tile-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tile-zone-badge {
+    font-size: 7px;
+    padding: 1px 4px;
+    border-radius: 4px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.tile-points {
+    font-size: 9px;
+    font-weight: 800;
+}
+
+/* Tile Zones Theme Colors */
+.zone-forest {
+    border-color: rgba(16, 185, 129, 0.3);
+    background: linear-gradient(135deg, rgba(5, 150, 105, 0.3), rgba(6, 78, 59, 0.4));
+}
+.zone-ocean {
+    border-color: rgba(2, 132, 199, 0.3);
+    background: linear-gradient(135deg, rgba(2, 132, 199, 0.3), rgba(3, 105, 161, 0.4));
+}
+.zone-urban {
+    border-color: rgba(20, 184, 166, 0.3);
+    background: linear-gradient(135deg, rgba(13, 148, 136, 0.3), rgba(17, 94, 89, 0.4));
+}
+.zone-crisis {
+    border-color: rgba(239, 68, 68, 0.3);
+    background: linear-gradient(135deg, rgba(220, 38, 38, 0.3), rgba(153, 27, 27, 0.4));
+}
+.zone-corner {
+    border-color: rgba(245, 158, 11, 0.4);
+    background: linear-gradient(135deg, rgba(180, 83, 9, 0.35), rgba(120, 53, 15, 0.5));
+}
+
+/* Zone Hover / Trigger Visual Effects */
+.pulse-forest-glow {
+    box-shadow: 0 0 30px #10b981 !important;
+    border-color: #34d399 !important;
+}
+
+.pulse-ocean-glow {
+    box-shadow: 0 0 30px #0ea5e9 !important;
+    border-color: #38bdf8 !important;
+}
+
+.pulse-urban-glow {
+    box-shadow: 0 0 30px #06b6d4 !important;
+    border-color: #22d3ee !important;
+}
+
+.pulse-red-alert {
+    animation: alertStrobe 0.4s ease-in-out infinite alternate;
+}
+
+@keyframes alertStrobe {
+    from { box-shadow: 0 0 10px #ef4444; border-color: #ef4444; }
+    to { box-shadow: 0 0 35px #dc2626; border-color: #f87171; }
+}
+
+/* Particles */
+.fx-leaf {
+    position: fixed;
+    pointer-events: none;
+    z-index: 999;
+    font-size: 20px;
+    animation: leafFloat 1.2s ease-out forwards;
+}
+
+@keyframes leafFloat {
+    0% { transform: translateY(0) rotate(0deg) scale(0.6); opacity: 1; }
+    100% { transform: translateY(-70px) rotate(180deg) scale(1.2); opacity: 0; }
+}
+
+.fx-bubble {
+    position: fixed;
+    pointer-events: none;
+    z-index: 999;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #fff, #38bdf8);
+    box-shadow: 0 0 10px #38bdf8;
+    animation: bubbleRise 1.4s ease-out forwards;
+}
+
+@keyframes bubbleRise {
+    0% { transform: translateY(0) scale(0.5); opacity: 1; }
+    100% { transform: translateY(-90px) scale(1.3); opacity: 0; }
+}
+
+.fx-laser-beam {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.8), transparent);
+    animation: laserSweep 0.6s linear forwards;
+}
+
+@keyframes laserSweep {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.fx-smoke {
+    position: fixed;
+    pointer-events: none;
+    z-index: 999;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(100, 116, 139, 0.5);
+    filter: blur(6px);
+    animation: smokeDrift 1.2s ease-out forwards;
+}
+
+@keyframes smokeDrift {
+    0% { transform: translateY(0) scale(0.6); opacity: 0.8; }
+    100% { transform: translateY(-60px) scale(2.2); opacity: 0; }
+}
+
+/* ==========================================================================
+   CENTER BOARD HUB (3D Earth & Indicators)
+   ========================================================================== */
+
+.board-center-hub {
+    grid-column: 2 / span 9;
+    grid-row: 2 / span 9;
+    position: relative;
+    border-radius: 20px;
+    background: radial-gradient(circle at center, rgba(6, 32, 24, 0.9) 0%, rgba(2, 12, 9, 0.95) 100%);
+    border: 2px solid rgba(16, 185, 129, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    overflow: hidden;
+}
+
+.three-hub-container {
+    width: 100%;
+    height: 380px;
+    position: relative;
+    z-index: 2;
+}
+
+.global-metrics-glass {
+    width: 90%;
+    max-width: 520px;
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    padding: 12px 18px;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.metric-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.metric-label {
+    font-size: 10px;
+    font-weight: 800;
+    width: 130px;
+    color: #cbd5e1;
+    letter-spacing: 0.5px;
+}
+
+.progress-bar-bg {
+    flex: 1;
+    height: 9px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    border-radius: 6px;
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.green-gradient {
+    background: linear-gradient(90deg, #059669, #10b981, #34d399);
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.8);
+}
+
+.red-gradient {
+    background: linear-gradient(90deg, #f59e0b, #ef4444, #b91c1c);
+    box-shadow: 0 0 10px rgba(239, 68, 68, 0.8);
+}
+
+.metric-value {
+    font-size: 11px;
+    font-weight: 800;
+    width: 85px;
+    text-align: right;
+    font-family: 'Orbitron', monospace;
+}
+
+.event-ticker-text {
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 3D Dice Station Controls */
+.dice-station-controls {
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 6px;
+}
+
+.roll-result-badge {
+    background: rgba(15, 23, 42, 0.85);
+    border: 1px solid var(--emerald-primary);
+    border-radius: 12px;
+    padding: 6px 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+    0% { transform: scale(0.6); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* ==========================================================================
+   PLAYER PAWNS
+   ========================================================================== */
+
+.tile-pawns-slot {
+    position: absolute;
+    bottom: 2px;
+    left: 2px;
+    right: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    pointer-events: none;
+    z-index: 15;
+}
+
+.player-pawn {
+    width: 24px;
+    height: 24px;
+    position: relative;
+    transition: transform 0.25s ease;
+}
+
+.pawn-body {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+}
+
+.pawn-icon {
+    font-size: 13px;
+}
+
+.pawn-shadow {
+    position: absolute;
+    bottom: -3px;
+    left: 2px;
+    right: 2px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.6);
+    filter: blur(1.5px);
+    z-index: 1;
+}
+
+.pawn-bounce-hop {
+    animation: pawnHop 0.28s ease-in-out;
+}
+
+@keyframes pawnHop {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-18px) scale(1.15); }
+    100% { transform: translateY(0); }
+}
+
+.tile-stepped-on {
+    border-color: #facc15 !important;
+    box-shadow: 0 0 20px #facc15 !important;
+}
+
+/* ==========================================================================
+   MAGIC 3D CARD DRAW MODAL
+   ========================================================================== */
+
+.eco-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: rgba(4, 15, 12, 0.85);
+    backdrop-filter: blur(14px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-draw-stage {
+    perspective: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card-3d-wrapper {
+    width: 310px;
+    height: 440px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card-3d-wrapper.flipped {
+    transform: rotateY(180deg);
+}
+
+.magic-card {
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+}
+
+.card-back {
+    background: linear-gradient(135deg, #064e3b 0%, #022c22 100%);
+    border: 3px solid rgba(251, 191, 36, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 35px rgba(251, 191, 36, 0.35);
+}
+
+.card-back-pattern {
+    text-align: center;
+}
+
+.eco-sigil {
+    font-size: 70px;
+    animation: pulseSigil 3s ease-in-out infinite;
+}
+
+@keyframes pulseSigil {
+    0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px #10b981); }
+    50% { transform: scale(1.08); filter: drop-shadow(0 0 25px #34d399); }
+}
+
+.sigil-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 22px;
+    font-weight: 900;
+    color: #facc15;
+    letter-spacing: 2px;
+    margin-top: 10px;
+}
+
+.sigil-subtitle {
+    font-size: 11px;
+    font-weight: 700;
+    color: #a7f3d0;
+    letter-spacing: 3px;
+}
+
+.card-front {
+    transform: rotateY(180deg);
+    background: #0f172a;
+    border: 3px solid var(--emerald-primary);
+    display: flex;
+    flex-direction: column;
+}
+
+.theme-green-card {
+    border-color: #facc15;
+    box-shadow: 0 0 35px var(--gold-glow);
+}
+
+.theme-pollution-card {
+    border-color: #ef4444;
+    box-shadow: 0 0 35px var(--crisis-glow);
+}
+
+.card-front-header {
+    padding: 10px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.card-front-artwork {
+    flex: 1;
+    background: radial-gradient(circle at center, rgba(16, 185, 129, 0.2) 0%, rgba(15, 23, 42, 0.8) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.artwork-icon {
+    font-size: 64px;
+    z-index: 2;
+}
+
+.card-front-body {
+    padding: 14px;
+    text-align: center;
+}
+
+.card-title-text {
+    font-size: 16px;
+    font-weight: 800;
+    color: #f8fafc;
+}
+
+.card-point-pill {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 800;
+    margin: 6px 0;
+}
+
+.badge-green {
+    background: rgba(16, 185, 129, 0.25);
+    color: #34d399;
+    border: 1px solid #10b981;
+}
+
+.badge-red {
+    background: rgba(239, 68, 68, 0.25);
+    color: #f87171;
+    border: 1px solid #ef4444;
+}
+
+.card-desc-text {
+    font-size: 11px;
+    color: #cbd5e1;
+    line-height: 1.4;
+}
+
+.card-front-footer {
+    padding: 10px 12px;
+    background: rgba(0, 0, 0, 0.4);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.eco-fact-box {
+    font-size: 9px;
+    line-height: 1.35;
+    color: #94a3b8;
+}
+
+.fact-tag {
+    font-weight: 800;
+    color: #38bdf8;
+    display: block;
+    margin-bottom: 2px;
+}
+
+/* ==========================================================================
+   CRAFTING BENCH (BÀN CHẾ TẠO XANH)
+   ========================================================================== */
+
+.crafting-dialog-glass {
+    width: 90%;
+    max-width: 860px;
+    padding: 24px;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 14px;
+    margin-bottom: 18px;
+}
+
+.modal-close-btn {
+    background: none;
+    border: none;
+    color: #94a3b8;
+    font-size: 28px;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.modal-close-btn:hover {
+    color: #fff;
+}
+
+.crafting-body-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 18px;
+}
+
+.recipes-sidebar {
+    padding: 14px;
+    max-height: 380px;
+    overflow-y: auto;
+}
+
+.recipes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.recipe-item-card {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.recipe-item-card:hover {
+    border-color: var(--emerald-primary);
+    background: rgba(16, 185, 129, 0.15);
+}
+
+.recipe-item-card.active {
+    border-color: #facc15;
+    background: rgba(245, 158, 11, 0.15);
+}
+
+.recipe-item-card.craftable-ready {
+    border-color: #34d399;
+}
+
+.ready-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: #34d399;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #34d399;
+}
+
+.fusion-workbench {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.fusion-altar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+}
+
+.fusion-core-circle {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.3) 0%, rgba(15, 23, 42, 0.8) 100%);
+    border: 2px dashed #34d399;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.result-preview-icon {
+    font-size: 42px;
+}
+
+.materials-slots-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+}
+
+.craft-material-slot {
+    width: 100px;
+    padding: 8px;
+    border-radius: 12px;
+    text-align: center;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.craft-material-slot.filled {
+    border-color: #10b981;
+    background: rgba(16, 185, 129, 0.15);
+}
+
+.craft-material-slot.missing {
+    border-color: rgba(239, 68, 68, 0.5);
+    opacity: 0.6;
+}
+
+.slot-icon {
+    font-size: 22px;
+}
+
+.slot-name {
+    font-size: 9px;
+    font-weight: 700;
+    margin: 4px 0;
+    color: #e2e8f0;
+}
+
+.slot-status {
+    font-size: 8px;
+    font-weight: 800;
+}
+
+.craft-material-slot.filled .slot-status { color: #34d399; }
+.craft-material-slot.missing .slot-status { color: #f87171; }
+
+.hand-card-chip {
+    padding: 4px 10px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+}
+
+.chip-green {
+    background: rgba(16, 185, 129, 0.2);
+    border: 1px solid #10b981;
+    color: #a7f3d0;
+}
+
+.chip-red {
+    background: rgba(239, 68, 68, 0.2);
+    border: 1px solid #ef4444;
+    color: #fecaca;
+}
+
+.fusion-burst-active {
+    animation: fusionBurst 1.2s ease-in-out;
+}
+
+@keyframes fusionBurst {
+    0% { transform: scale(1); filter: drop-shadow(0 0 10px #10b981); }
+    50% { transform: scale(1.3) rotate(180deg); filter: drop-shadow(0 0 40px #facc15); border-color: #facc15; }
+    100% { transform: scale(1) rotate(360deg); }
+}
+
+/* Gaia Storm Full-Board Overlay */
+.gaia-storm-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 500;
+    background: radial-gradient(circle at center, rgba(16, 185, 129, 0.85) 0%, rgba(2, 132, 199, 0.85) 50%, rgba(0, 0, 0, 0.95) 100%);
+    backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: stormFlash 4.5s ease-out forwards;
+}
+
+.gaia-storm-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 30px;
+}
+
+/* ==========================================================================
+   ECOBOT AI CHATBOT MASCOT & PANEL
+   ========================================================================== */
+
+.ecobot-widget-wrapper {
+    position: fixed;
+    bottom: 20px;
+    right: 24px;
+    z-index: 150;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.ecobot-mascot-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.ecobot-mascot-btn:hover {
+    transform: scale(1.1) translateY(-4px);
+}
+
+.bot-badge-ping {
+    position: absolute;
+    top: 0;
+    right: 12px;
+    width: 12px;
+    height: 12px;
+    background: #34d399;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #34d399;
+    animation: pingDot 1.5s infinite;
+}
+
+@keyframes pingDot {
+    0% { transform: scale(0.8); opacity: 1; }
+    100% { transform: scale(2); opacity: 0; }
+}
+
+.bot-label {
+    font-size: 11px;
+    font-weight: 800;
+    color: #34d399;
+    background: rgba(15, 23, 42, 0.85);
+    padding: 2px 8px;
+    border-radius: 10px;
+    border: 1px solid rgba(16, 185, 129, 0.4);
+    margin-top: -6px;
+}
+
+.bot-eye {
+    animation: botBlink 4s infinite;
+    transform-origin: center;
+}
+
+@keyframes botBlink {
+    0%, 94%, 98%, 100% { transform: scaleY(1); }
+    96% { transform: scaleY(0.1); }
+}
+
+.bot-waving-arm {
+    animation: botWave 2.5s ease-in-out infinite;
+    transform-origin: 78px 50px;
+}
+
+@keyframes botWave {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(-18deg); }
+}
+
+/* Chat Sidebar Panel */
+.ecobot-chat-panel {
+    width: 340px;
+    height: 480px;
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: column;
+    padding: 14px;
+    border: 1px solid rgba(16, 185, 129, 0.35);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+}
+
+.chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.chat-messages-container {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-right: 4px;
+}
+
+.chat-bubble-row {
+    display: flex;
+    width: 100%;
+}
+
+.bot-row { justify-content: flex-start; }
+.user-row { justify-content: flex-end; }
+
+.message-bubble {
+    max-width: 85%;
+    padding: 10px 12px;
+    border-radius: 14px;
+    font-size: 12px;
+    line-height: 1.45;
+}
+
+.bubble-bot {
+    background: rgba(16, 185, 129, 0.18);
+    border: 1px solid rgba(16, 185, 129, 0.35);
+    color: #e2e8f0;
+    border-bottom-left-radius: 4px;
+}
+
+.bubble-user {
+    background: rgba(2, 132, 199, 0.3);
+    border: 1px solid rgba(2, 132, 199, 0.5);
+    color: #fff;
+    border-bottom-right-radius: 4px;
+}
+
+.bubble-time {
+    font-size: 8px;
+    color: rgba(255, 255, 255, 0.4);
+    margin-top: 4px;
+    text-align: right;
+}
+
+.bot-typing-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 0;
+}
+
+.typing-bubble {
+    display: flex;
+    gap: 3px;
+    padding: 6px 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.typing-bubble span {
+    width: 5px;
+    height: 5px;
+    background: #34d399;
+    border-radius: 50%;
+    animation: typingHop 1s infinite alternate;
+}
+
+.typing-bubble span:nth-child(2) { animation-delay: 0.2s; }
+.typing-bubble span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typingHop {
+    from { transform: translateY(0); }
+    to { transform: translateY(-4px); }
+}
+
+.quick-chips-row {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding: 8px 0;
+}
+
+.quick-chip {
+    padding: 4px 8px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    color: #cbd5e1;
+    font-size: 10px;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.quick-chip:hover {
+    background: rgba(16, 185, 129, 0.25);
+    border-color: #10b981;
+    color: #fff;
+}
+
+.chat-input-form {
+    display: flex;
+    gap: 8px;
+    margin-top: 6px;
+}
+
+.chat-input-form input {
+    flex: 1;
+    padding: 8px 12px;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 12px;
+    outline: none;
+}
+
+.send-btn {
+    background: var(--emerald-primary);
+    border: none;
+    color: #fff;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* ==========================================================================
+   HUD LOGS & PLAYER CARDS
+   ========================================================================== */
+
+.player-card-hud {
+    padding: 10px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.25s;
+}
+
+.current-turn-border {
+    border-color: #facc15 !important;
+    background: rgba(245, 158, 11, 0.15) !important;
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
+}
+
+.mission-item-card {
+    padding: 8px 12px;
+}
+
+.game-log-box {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+    min-height: 200px;
+    max-height: 300px;
+}
+
+.log-entries-list {
+    flex: 1;
+    overflow-y: auto;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-right: 4px;
+}
+
+.log-entry {
+    font-size: 11px;
+    line-height: 1.35;
+    padding-bottom: 4px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.log-text {
+    color: #cbd5e1;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(16, 185, 129, 0.4);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(16, 185, 129, 0.8);
+}
+
+.hidden {
+    display: none !important;
+}
+
+.fade-out {
+    animation: fadeOut 0.6s forwards;
+}
+
+@keyframes fadeOut {
+    to { opacity: 0; transform: scale(0.96); }
+}
+
+/* ==========================================================================
+   MULTIPLAYER LOBBY (4 PLAYERS) & HD WEB ARTWORK STYLES
+   ========================================================================== */
+
+.font-orbitron {
+    font-family: 'Orbitron', sans-serif;
+}
+
+/* 4-Player Waiting Lobby Slots */
+.lobby-slots-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+}
+
+@media (max-width: 768px) {
+    .lobby-slots-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.lobby-slot-card {
+    padding: 16px 12px;
+    border-radius: 16px;
+    text-align: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 190px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slot-occupied {
+    background: rgba(15, 23, 42, 0.7);
+    border: 2px solid rgba(16, 185, 129, 0.4);
+}
+
+.slot-occupied:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.slot-empty {
+    background: rgba(15, 23, 42, 0.35);
+    border: 2px dashed rgba(255, 255, 255, 0.15);
+}
+
+.slot-badge-tag {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    font-size: 9px;
+    font-weight: 800;
+    padding: 2px 6px;
+    border-radius: 6px;
+    text-transform: uppercase;
+}
+
+.slot-avatar-wrapper {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-top: 10px;
+    border: 2.5px solid;
+    position: relative;
+    background: #0f172a;
+}
+
+.slot-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.slot-occupied:hover .slot-avatar-img {
+    transform: scale(1.1);
+}
+
+/* Character Chibi HD Artworks */
+.chibi-avatar-frame {
+    width: 76px;
+    height: 76px;
+    margin: 0 auto 10px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    border: 2.5px solid;
+    background: #0f172a;
+}
+
+.chibi-web-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    transition: transform 0.3s;
+}
+
+.chibi-role-card:hover .chibi-web-img {
+    transform: scale(1.12);
+}
+
+/* 3D Magic Card Art Cover */
+.card-front-artwork {
+    position: relative;
+    height: 155px;
+    width: 100%;
+    overflow: hidden;
+    background: #0f172a;
+}
+
+.card-cover-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.magic-card:hover .card-cover-image {
+    transform: scale(1.08);
+}
+
+.card-artwork-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.1) 0%, rgba(15, 23, 42, 0.85) 100%);
+    pointer-events: none;
+}
+
+.artwork-icon-badge {
+    position: absolute;
+    bottom: 8px;
+    right: 12px;
+    font-size: 26px;
+    background: rgba(15, 23, 42, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    z-index: 5;
+}
+
+/* Pawn Image Avatar */
+.pawn-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Board Tile Thumb Cover */
+.tile-thumb-cover {
+    height: 20px;
+    width: 100%;
+    border-radius: 4px;
+    background-size: cover;
+    background-position: center;
+    margin: 1px 0;
+    opacity: 0.85;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
